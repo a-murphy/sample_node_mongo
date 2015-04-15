@@ -4,6 +4,7 @@ language: node_js
 # Version number
 node_js:
   - 0.10.25
+  - 0.12.0
 
 # Mongo binds to 127.0.0.1 by default
 services:
@@ -20,7 +21,6 @@ before_script:
 
 # Running the tests with grunt
 script:
-  - exit 0
   - grunt
 
 # Tell istanbul to generate a coverage report
