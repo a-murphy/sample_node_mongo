@@ -30,12 +30,16 @@ install:
   - mongod > /var/log/mongodb/mongodb.log &
   - echo "mongodb-org-server hold" | dpkg --set-selections
   - echo "mongodb-org-shell hold" | dpkg --set-selections
+  # Install npm packages
   - npm install
 
 # Create directories for test and coverage reports
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
+  
+  # Resetting the database in before_script makes sure that the database is always empty for consistent test results.
+  - mongo test --eval 'db.dropDatabase()'
 
 # Running the tests with grunt
 script:
@@ -45,6 +49,10 @@ script:
 after_script:
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
+  
+  # Shut down the database
+  - mongo admin --eval 'db.shutdownServer()'
+
 
 build_image: shippableimages/ubuntu1404_nodejs
 
