@@ -30,7 +30,7 @@ before_script:
   - mkdir -p shippable/codecoverage
   
   # Start MongoDB
-  - ./startMongo.sh
+  - . startMongo.sh
   
   # Resetting the database in before_script makes sure that the database is always empty for consistent test results.
   - mongo test --eval 'db.dropDatabase()'
