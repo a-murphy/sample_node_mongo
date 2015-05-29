@@ -29,6 +29,9 @@ before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   
+  # Start MongoDB
+  - sudo service mongod start
+  
   # Resetting the database in before_script makes sure that the database is always empty for consistent test results.
   - mongo test --eval 'db.dropDatabase()'
 
