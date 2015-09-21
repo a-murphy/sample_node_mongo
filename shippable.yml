@@ -3,7 +3,6 @@ language: node_js
 
 # Version number
 node_js:
-  - 0.10.25
   - 0.10.24
 
 # Mongo binds to 127.0.0.1 by default
