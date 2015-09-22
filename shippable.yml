@@ -31,4 +31,4 @@ after_script:
 build_timeout: 10
 
 cache: true
-build_image: shipimg/api:latest
+build_image: amurphy/node-mongo:latest
