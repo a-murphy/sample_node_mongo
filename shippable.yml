@@ -7,7 +7,9 @@ node_js:
   
 branches:
   only:
-    - master
+    - test-three
+  except:
+    - test-three
 
 # Mongo binds to 127.0.0.1 by default
 services:
