@@ -30,7 +30,7 @@ describe("Persistence", function () {
         (e === null).should.equal(true);
         var response = res.body;
         response = response[0];
-        response.should.have.property("name", "doobie");
+        response.should.have.property("name", "unknown");
         done();
       });
   });
