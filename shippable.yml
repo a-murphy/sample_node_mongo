@@ -32,7 +32,7 @@ before_script:
   - mongo test --eval 'db.dropDatabase()'
 
 script:
-  - grunt --force test
+  - grunt --force
 
 # Tell istanbul to generate a coverage report
 after_script:
