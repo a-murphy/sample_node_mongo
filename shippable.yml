@@ -31,6 +31,9 @@ before_script:
   # Resetting the database in before_script makes sure that the database is always empty for consistent test results.
   - mongo test --eval 'db.dropDatabase()'
 
+script:
+  - grunt --force test
+
 # Tell istanbul to generate a coverage report
 after_script:
   - ./node_modules/.bin/istanbul cover grunt -- --force -u tdd
