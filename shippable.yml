@@ -6,26 +6,41 @@ node_js:
   - 0.10.25
   - 0.10.24
 
-# Mongo binds to 127.0.0.1 by default
-services:
-  - mongodb
-
 # The path for Xunit to output test reports
 env:
   - XUNIT_FILE=shippable/testresults/result.xml
+
+before_install:
+  # activate the nvm
+  - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
+  - node --version
+  - npm install -g grunt-cli
+
+install:
+  # Install npm packages
+  - npm install
 
 # Create directories for test and coverage reports
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
+  
+  # Start MongoDB
+  - . startMongo.sh
+  
+  # Resetting the database in before_script makes sure that the database is always empty for consistent test results.
+  - mongo test --eval 'db.dropDatabase()'
 
-# Running the tests with grunt
-script:
-  - grunt
 
 # Tell istanbul to generate a coverage report
 after_script:
-  - ./node_modules/.bin/istanbul cover grunt -- -u tdd
+  - ./node_modules/.bin/istanbul cover grunt -- --force -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
+  
+  # Shut down the database
+  - mongo admin --eval 'db.shutdownServer()'
+
+
+build_image: amurphy/node_mongo
 
 cache: true
