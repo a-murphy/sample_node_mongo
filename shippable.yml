@@ -2,9 +2,11 @@
 language: node_js
 
 # Version number
-node_js:
-  - 0.10.25
-  - 0.10.24
+matrix:
+  includes:
+    - node_js: 0.10.25
+  excludes:
+    - node_js: 0.10.24
 
 # The path for Xunit to output test reports
 env:
