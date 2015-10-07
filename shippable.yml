@@ -3,9 +3,9 @@ language: node_js
 
 # Version number
 matrix:
-  includes:
+  include:
     - node_js: 0.10.25
-  excludes:
+  exclude:
     - node_js: 0.10.25
 
 # The path for Xunit to output test reports
