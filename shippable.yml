@@ -6,7 +6,7 @@ matrix:
   includes:
     - node_js: 0.10.25
   excludes:
-    - node_js: 0.10.24
+    - node_js: 0.10.25
 
 # The path for Xunit to output test reports
 env:
