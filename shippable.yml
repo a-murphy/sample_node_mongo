@@ -11,10 +11,10 @@ env:
 build:
     ci:
     # Provide values for the shippable environment
-    - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" knexplus.js
-    - sed -i -e "s/{{ mysql_port }}/3306/" knexplus.js
-    - sed -i -e "s/{{ mysql_root_password }}//" knexplus.js
-    - sed -i -e "s/{{ mysql_db }}/name/" knexplus.js
+   # - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" knexplus.js
+  #  - sed -i -e "s/{{ mysql_port }}/3306/" knexplus.js
+  #  - sed -i -e "s/{{ mysql_root_password }}//" knexplus.js
+  #  - sed -i -e "s/{{ mysql_db }}/name/" knexplus.js
 
     - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" knexfile.js
     - sed -i -e "s/{{ mysql_port }}/3306/" knexfile.js
@@ -29,8 +29,8 @@ build:
     # Prepare the test database
     - mysql -e 'CREATE DATABASE mandrel_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
     - mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE ON name_test.* TO name@localhost IDENTIFIED BY ''; FLUSH PRIVILEGES;"
-    - cat ./config/knexplus.js
-    - (NODE_ENV=test knex --knexfile ./knexplus.js migrate:latest)
+    #- cat ./config/knexplus.js
+    #- (NODE_ENV=test knex --knexfile ./knexplus.js migrate:latest)
     - (NODE_ENV=test knex --knexfile ./knexfile.js seed:run)
 
     # Run the tests
