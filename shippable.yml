@@ -28,7 +28,7 @@ build:
     - npm install
 
     # Prepare the test database
-    - mysql -e 'CREATE DATABASE mandrel_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
+    - mysql -e 'CREATE DATABASE name_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
     - mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE ON name_test.* TO name@localhost IDENTIFIED BY ''; FLUSH PRIVILEGES;"
     #- cat ./config/knexplus.js
     #- (NODE_ENV=test knex --knexfile ./knexplus.js migrate:latest)
