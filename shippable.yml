@@ -1,0 +1,42 @@
+language: node_js
+node_js:
+  - "5.9.0"
+
+services:
+  - mysql
+
+env:
+  - NODE_ENV=test
+
+build:
+    ci:
+    # Put config templates where they belong
+    - cp ansible/roles/deploy/templates/knexplus.js.j2 config/knexplus.js
+    - cp ansible/roles/deploy/templates/knexfile.js.j2 config/knexfile.js
+
+    # Provide values for the shippable environment
+    - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" config/knexplus.js
+    - sed -i -e "s/{{ mysql_port }}/3306/" config/knexplus.js
+    - sed -i -e "s/{{ mysql_root_password }}//" config/knexplus.js
+    - sed -i -e "s/{{ mysql_db }}/name/" config/knexplus.js
+
+    - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" config/knexfile.js
+    - sed -i -e "s/{{ mysql_port }}/3306/" config/knexfile.js
+    - sed -i -e "s/{{ mysql_user }}/name/" config/knexfile.js
+    - sed -i -e "s/{{ mysql_password }}//" config/knexfile.js
+    - sed -i -e "s/{{ mysql_db }}/name/" config/knexfile.js
+
+    # Install the app/test dependencies
+    - npm install -g knex eslint
+    - (cd www && npm install)
+
+    # Prepare the test database
+    - mysql -e 'CREATE DATABASE mandrel_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
+    - mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE ON name_test.* TO name@localhost IDENTIFIED BY ''; FLUSH PRIVILEGES;"
+    - cat ./config/knexplus.js
+    - (NODE_ENV=test knex --knexfile ./config/knexplus.js migrate:latest)
+    - (NODE_ENV=test knex --knexfile ./config/knexfile.js seed:run)
+
+    # Run the tests
+    - mkdir -p shippable/testresults
+    - npm test
