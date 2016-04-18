@@ -24,6 +24,7 @@ build:
 
     # Install the app/test dependencies
     - npm install -g knex eslint
+    - npm install knex
     - npm install
 
     # Prepare the test database
