@@ -18,8 +18,4 @@ build:
 hub:
   - integrationName: ECR
     type: ecr
-    branches:
-      only:
-        - mysql
-    agent_only: false
             
