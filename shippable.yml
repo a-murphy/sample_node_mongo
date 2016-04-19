@@ -13,9 +13,13 @@ build:
     - mysql -e 'CREATE DATABASE name_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
     - mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE ON name_test.* TO name@localhost IDENTIFIED BY ''; FLUSH PRIVILEGES;"
 
-    - docker pull scratch:latest
-    - docker tag scratch:latest 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
+    - docker tag $SHIPPABLE_BUILD_CONTAINER 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
     - docker push 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
 hub:
   - integrationName: AWS
     type: ecr
+    branches:
+      only:
+        - mysql
+    agent_only: false
+            
