@@ -18,3 +18,4 @@ build:
 hub:
   - integrationName: AWS
     type: docker
+    branches: 'all'
