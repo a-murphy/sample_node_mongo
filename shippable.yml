@@ -9,31 +9,13 @@ env:
   - NODE_ENV=test
 
 build:
-    ci:
-    # Provide values for the shippable environment
-   # - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" knexplus.js
-  #  - sed -i -e "s/{{ mysql_port }}/3306/" knexplus.js
-  #  - sed -i -e "s/{{ mysql_root_password }}//" knexplus.js
-  #  - sed -i -e "s/{{ mysql_db }}/name/" knexplus.js
-
-    - sed -i -e "s/{{ mysql_host }}/127.0.0.1/" knexfile.js
-    - sed -i -e "s/{{ mysql_port }}/3306/" knexfile.js
-    - sed -i -e "s/{{ mysql_user }}/name/" knexfile.js
-    - sed -i -e "s/{{ mysql_password }}//" knexfile.js
-    - sed -i -e "s/{{ mysql_db }}/name/" knexfile.js
-
-    # Install the app/test dependencies
-    - npm install -g knex eslint
-    - npm install knex
-    - npm install
-
-    # Prepare the test database
+  ci:
     - mysql -e 'CREATE DATABASE name_test CHARACTER SET=utf8 COLLATE=utf8_unicode_ci;'
     - mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE ON name_test.* TO name@localhost IDENTIFIED BY ''; FLUSH PRIVILEGES;"
-    #- cat ./config/knexplus.js
-    #- (NODE_ENV=test knex --knexfile ./knexplus.js migrate:latest)
-    - (NODE_ENV=test knex --knexfile ./knexfile.js seed:run)
-
-    # Run the tests
-    - mkdir -p shippable/testresults
-    - npm test
+  post_ci:
+    #Commit the container only if you want all the artifacts from the CI step
+    - docker commit $SHIPPABLE_CONTAINER_NAME 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
+    - docker push 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
+hub:
+      - integrationName: AWS
+        type: docker
