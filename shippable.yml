@@ -17,5 +17,5 @@ build:
     - docker commit $SHIPPABLE_CONTAINER_NAME 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
     - docker push 544102397216.dkr.ecr.us-west-2.amazonaws.com/test/repository:latest
 hub:
-      - integrationName: AWS
-        type: docker
+  - integrationName: AWS
+    type: docker
