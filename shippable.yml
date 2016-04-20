@@ -6,6 +6,8 @@ node_js:
   - 0.10.25
   - 0.10.24
 
+services:
+  - mongo
 # The path for Xunit to output test reports
 env:
   - XUNIT_FILE=shippable/testresults/result.xml
