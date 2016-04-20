@@ -14,7 +14,6 @@ env:
 
 before_install:
   # activate the nvm
-  - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
   - node --version
   - npm install -g grunt-cli
 
