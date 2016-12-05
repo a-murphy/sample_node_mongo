@@ -3,8 +3,13 @@ language: node_js
 
 # Version number
 node_js:
-  - 0.10.25
   - 0.10.24
+  
+branches:
+  except:
+    - test-three
+  only:
+    - master
 
 # Mongo binds to 127.0.0.1 by default
 services:
@@ -29,6 +34,5 @@ after_script:
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
   
 build_timeout: 10
-
 cache: true
 build_image: amurphy/node_mongo:latest
