@@ -15,13 +15,15 @@ build:
 
   ci:
     - npm --version
-
-notifications:
-  email:
-    on_success: never
-    on_failure: change
-    on_cancel: always
-  irc:
-    on_success: always
-    on_cancel: change
-    on_failure: never
+    
+integrations:
+  notifications:
+    - integrationName: "Slack Integration" 
+      type: slack
+      on_cancel: change
+      recipients:
+        - "#aidans-test-channel"
+    - integrationName: email 
+      type: email
+      on_failure: never
+      on_cancel: always
