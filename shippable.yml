@@ -20,3 +20,8 @@ notifications:
   email:
     on_success: never
     on_failure: change
+    on_cancel: always
+  irc:
+    on_success: always
+    on_cancel: change
+    on_failure: never
