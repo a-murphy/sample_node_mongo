@@ -21,7 +21,7 @@ integrations:
     - integrationName: "Slack Integration" 
       type: slack
   #    on_cancel: always
-      on_failure: never
+      on_failure: always
       recipients:
         - "#aidans-test-channel"
     - integrationName: email 
