@@ -20,7 +20,8 @@ integrations:
   notifications:
     - integrationName: "Slack Integration" 
       type: slack
-      on_cancel: change
+      on_cancel: always
+      on_failure: never
       recipients:
         - "#aidans-test-channel"
     - integrationName: email 
