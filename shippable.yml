@@ -9,7 +9,7 @@ build:
     - echo $IMAGE_TAG
 
   pre_ci_boot:
-    image_name: shippableimages/node #drydock/u14nodall
+    image_name: shippableimages/ubuntu1404_node #drydock/u14nodall
     image_tag: prod
   #  pull: false
   cache: true
