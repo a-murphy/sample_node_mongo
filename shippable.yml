@@ -8,9 +8,9 @@ build:
     - if [ "$BRANCH" == "December2016" ] ; then export IMAGE_TAG="1.0.0" ; else export IMAGE_TAG="dev" ; fi
     - echo $IMAGE_TAG
 
-  pre_ci_boot:
-    image_name: drydock/u14nodall
-    image_tag: prod
+#  pre_ci_boot:
+#    image_name: drydock/u14nodall
+#    image_tag: prod
  #   pull: true
 
   ci:
