@@ -17,16 +17,3 @@ build:
   ci:
     - npm --version
     
-integrations:
-  notifications:
-    - integrationName: "Slack Integration" 
-      type: slack
-  #    on_cancel: always
-      on_failure: change
-      recipients:
-        - "#aidans-test-channel"
-    - integrationName: email 
-      type: email
-      on_failure: always
-      on_cancel: always
-      on_success: always
